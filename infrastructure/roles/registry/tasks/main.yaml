@@ -1,0 +1,55 @@
+- name: Wait for Docker to be available
+  shell: docker info
+  register: docker_info
+  until: docker_info.rc == 0
+  retries: 10
+  delay: 5
+  ignore_errors: yes
+
+- name: Display Docker status
+  debug:
+    msg: "Docker is {{ 'available' if docker_info.rc == 0 else 'not available' }}"
+
+- name: Fail if Docker is not available
+  fail:
+    msg: "Docker is not available. Please ensure Docker is installed and running."
+  when: docker_info.rc != 0
+
+- name: Create registry volume
+  docker_volume:
+    name: registry_data
+    state: present
+
+- name: Run local registry container
+  docker_container:
+    name: registry
+    image: registry:2
+    state: started
+    restart_policy: always
+    published_ports:
+      - "5000:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+    env:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+
+- name: Wait for registry to be ready
+  wait_for:
+    port: 5000
+    host: localhost
+    delay: 5
+    timeout: 120
+
+- name: Configure Minikube to use local registry
+  shell: |
+    minikube addons enable registry-aliases
+  become: no
+  become_user: "{{ ansible_user }}"
+  ignore_errors: yes
+
+- name: Create registry alias in Minikube
+  shell: |
+    kubectl create configmap registry-aliases --from-literal=localhost:5000="$(minikube ip):5000" -n kube-system || true
+  become: no
+  become_user: "{{ ansible_user }}"
+  ignore_errors: yes

@@ -1,0 +1,8 @@
+- name: Provision Minikube environment with Docker and Registry
+  hosts: az_vm
+  become: false
+
+  roles:
+    - role: docker
+    - role: minikube
+    - role: registry
