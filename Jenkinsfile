@@ -25,36 +25,36 @@ pipeline {
       }
     }
 
-    stage('Push Docker Image to Local Registry') {
-      steps {
-        withCredentials([usernamePassword(
-          credentialsId: "docker-hub",
-          usernameVariable: 'USER',
-          passwordVariable: 'PASS'
-        )]) {
-          script {
-            echo "📦 Pushing image to local Docker registry..."
-            sh """
-              echo "$PASS" | docker login -u "$USER" --password-stdin
-              docker tag ${IMAGE}:${TAG} ${REGISTRY}/${IMAGE}:${TAG}
-              docker push ${REGISTRY}/${IMAGE}:${TAG}
-            """
-          }
-        }
-      }
-    }
+    // stage('Push Docker Image to Local Registry') {
+    //   steps {
+    //     withCredentials([usernamePassword(
+    //       credentialsId: "docker-hub",
+    //       usernameVariable: 'USER',
+    //       passwordVariable: 'PASS'
+    //     )]) {
+    //       script {
+    //         echo "📦 Pushing image to local Docker registry..."
+    //         sh """
+    //           echo "$PASS" | docker login -u "$USER" --password-stdin
+    //           docker tag ${IMAGE}:${TAG} ${REGISTRY}/${IMAGE}:${TAG}
+    //           docker push ${REGISTRY}/${IMAGE}:${TAG}
+    //         """
+    //       }
+    //     }
+    //   }
+    // }
 
-    stage('Deploy to Kubernetes') {
-      steps {
-        script {
-          echo "🚀 Deploying to Kubernetes using kubectl apply..."
-          sh '''
-            export KUBECONFIG=/var/jenkins_home/kubeconfig
-            kubectl apply -f deployment.yaml
-          '''
-        }
-      }
-    }
+    // stage('Deploy to Kubernetes') {
+    //   steps {
+    //     script {
+    //       echo "🚀 Deploying to Kubernetes using kubectl apply..."
+    //       sh '''
+    //         export KUBECONFIG=/var/jenkins_home/kubeconfig
+    //         kubectl apply -f deployment.yaml
+    //       '''
+    //     }
+    //   }
+    // }
   }
 
   post {
