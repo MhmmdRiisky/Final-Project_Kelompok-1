@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: localhost:5000/user/demo-app:latest  # <== tanpa localhost
+          image: 192.168.49.1:5000/user/demo-app:latest  # <== tanpa localhost
           ports:
             - containerPort: 80
