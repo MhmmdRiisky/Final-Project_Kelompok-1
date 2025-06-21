@@ -40,11 +40,12 @@ pipeline {
       steps {
         script {
           echo "🚀 Deploying to Kubernetes using kubectl apply..."
-          sh '''
-            export KUBECONFIG=/var/jenkins_home/kubeconfig
-            kubectl apply -f deployment.yaml
-            kubectl apply -f service.yaml
-          '''
+          withEnv(["KUBECONFIG=/kubeconfig"]) {
+            sh '''
+              kubectl apply -f deployment.yaml
+              kubectl apply -f service.yaml
+            '''
+          }
         }
       }
     }
@@ -55,7 +56,4 @@ pipeline {
       echo "✅ Pipeline Sukses: Aplikasi berhasil dideploy ke Kubernetes"
     }
     failure {
-      echo "❌ Pipeline Gagal: Cek log untuk mengetahui error"
-    }
-  }
-}
+      echo "❌ Pipeline Gagal: Cek log untuk menget
