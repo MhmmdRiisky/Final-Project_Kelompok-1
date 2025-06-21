@@ -4,7 +4,7 @@ pipeline {
   environment {
     IMAGE = "user/demo-app" 
     TAG = "latest"
-    REGISTRY = "docker.io"
+    REGISTRY = "localhost:5000"
     DOCKER_CRED = "docker-hub"
     NAMESPACE = "default"
   }
@@ -27,20 +27,13 @@ pipeline {
 
     stage('Push Docker Image to Local Registry') {
       steps {
-        withCredentials([usernamePassword(
-          credentialsId: "docker-hub",
-          usernameVariable: 'USER',
-          passwordVariable: 'PASS'
-        )]) {
           script {
             echo "📦 Pushing image to local Docker registry..."
             sh """
-              echo "$PASS" | docker login -u "$USER" --password-stdin
               docker tag ${IMAGE}:${TAG} ${REGISTRY}/${IMAGE}:${TAG}
               docker push ${REGISTRY}/${IMAGE}:${TAG}
             """
           }
-        }
       }
     }
 
