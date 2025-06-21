@@ -13,7 +13,6 @@ pipeline {
     steps {
         git url: 'https://github.com/MhmmdRiisky/Final-Project_Kelompok-1.git',
             branch: 'main',
-            credentialsId: 'fe5842e8-804c-4a23-abf1-db3aee3009c3'
     }
 }
     stage('Build Docker Image') {
@@ -59,4 +58,3 @@ pipeline {
       echo "❌ Pipeline Gagal: Cek log untuk mengetahui error"
     }
   }
-}
