@@ -56,4 +56,4 @@ pipeline {
       echo "✅ Pipeline Sukses: Aplikasi berhasil dideploy ke Kubernetes"
     }
     failure {
-      echo "❌ Pipeline Gagal: Cek log untuk menget
+      echo "❌ Pipeline Gagal: Cek log untuk menget"
