@@ -58,3 +58,4 @@ pipeline {
       echo "❌ Pipeline Gagal: Cek log untuk mengetahui error"
     }
   }
+}
