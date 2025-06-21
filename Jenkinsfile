@@ -4,7 +4,7 @@ pipeline {
   environment {
     IMAGE = "user/demo-app"
     TAG = "latest"
-    REGISTRY = "registry:5000"
+    REGISTRY = "localhost:5000"
     NAMESPACE = "default"
   }
 
@@ -41,14 +41,10 @@ pipeline {
         script {
           echo "🚀 Deploying to Kubernetes using kubectl apply..."
           withEnv(["KUBECONFIG=/kubeconfig"]) {
-            sh """
-                # GANTI placeholder di YAML dengan nama image yang BENAR
-                sed -i 's|IMAGE_PLACEHOLDER|${REGISTRY}/${IMAGE}:${TAG}|g' deployment.yaml
-                
-                # Terapkan YAML yang sudah diupdate
-                kubectl apply -f deployment.yaml
-                kubectl apply -f service.yaml
-            """
+            sh '''
+              kubectl apply -f deployment.yaml
+              kubectl apply -f service.yaml
+            '''
           }
         }
       }
