@@ -44,6 +44,7 @@ pipeline {
           sh '''
             export KUBECONFIG=/var/jenkins_home/kubeconfig
             kubectl apply -f deployment.yaml
+            kubectl apply -f service.yaml
           '''
         }
       }
