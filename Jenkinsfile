@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE = "user/demo-app" 
+    IMAGE = "user/demo-app"
     TAG = "latest"
     REGISTRY = "localhost:5000"
     NAMESPACE = "default"
@@ -56,4 +56,7 @@ pipeline {
       echo "✅ Pipeline Sukses: Aplikasi berhasil dideploy ke Kubernetes"
     }
     failure {
-      echo "❌ Pipeline Gagal: Cek log untuk menget"
+      echo "❌ Pipeline Gagal: Cek log untuk mengetahui error"
+    }
+  }
+}
