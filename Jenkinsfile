@@ -12,7 +12,7 @@ pipeline {
   stage('Checkout Source Code') {
     steps {
         git url: 'https://github.com/MhmmdRiisky/Final-Project_Kelompok-1.git',
-            branch: 'main',
+            branch: 'main'
     }
 }
     stage('Build Docker Image') {
