@@ -4,7 +4,7 @@ pipeline {
   environment {
     IMAGE = "user/demo-app"
     TAG = "latest"
-    REGISTRY = "localhost:5000"
+    REGISTRY = "192.168.49.1:5000"
     NAMESPACE = "default"
   }
 
