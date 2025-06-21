@@ -4,7 +4,7 @@ pipeline {
   environment {
     IMAGE = "user/demo-app"
     TAG = "latest"
-    REGISTRY = "registry:5000"
+    REGISTRY = "docker-registry:5000"
     NAMESPACE = "default"
   }
 
