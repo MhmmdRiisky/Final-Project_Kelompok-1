@@ -9,13 +9,13 @@ pipeline {
     NAMESPACE = "default"
   }
 
-  stages {
-    stage('Checkout Source Code') {
-      steps {
-        git url: 'https://github.com/MhmmdRiisky/Final-Project_Kelompok-1.git', branch: 'main'
-      }
+  stage('Checkout Source Code') {
+    steps {
+        git url: 'https://github.com/MhmmdRiisky/Final-Project_Kelompok-1.git',
+            branch: 'main',
+            credentialsId: 'fe5842e8-804c-4a23-abf1-db3aee3009c3'
     }
-
+}
     stage('Build Docker Image') {
       steps {
         script {
