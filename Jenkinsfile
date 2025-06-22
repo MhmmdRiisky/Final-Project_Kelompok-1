@@ -19,7 +19,7 @@ pipeline {
       steps {
         script {
           echo "🛠️ Building image ${IMAGE}:${TAG}..."
-          docker.build("${IMAGE}:${TAG}", "--no-cache")
+          docker.build("${IMAGE}:${TAG}", "--no-cache .")
         }
       }
     }
