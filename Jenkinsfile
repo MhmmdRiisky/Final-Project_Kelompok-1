@@ -3,7 +3,8 @@ pipeline {
 
   environment {
     IMAGE = "user/demo-app"
-    TAG = "latest"
+    //TAG = "latest"
+    TAG = "${BUILD_ID}"
     REGISTRY = "192.168.49.4:5000"
     NAMESPACE = "default"
   }
